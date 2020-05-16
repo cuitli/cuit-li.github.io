@@ -100,4 +100,4 @@ theme: aomori
 deploy:
   type: git
   repo: git@github.com:cuitli/cuit-li.github.io.git
-  branch: public
+  branch: master
