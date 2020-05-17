@@ -8,7 +8,7 @@
   <meta name="description" content="技术博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="cuitli的博客">
-<meta property="og:url" content="https://cuit-li.github.io/index.html">
+<meta property="og:url" content="https://cuitli.github.io/index.html">
 <meta property="og:site_name" content="cuitli的博客">
 <meta property="og:description" content="技术博客">
 <meta property="article:author" content="cuitli">
@@ -75,7 +75,7 @@
           <div class="index">
   
     <article
-  id="post-我的第一篇博客"
+  id="post-jvm-metaspace-permGen"
   class="article article-type-post"
 >
 
@@ -85,11 +85,39 @@
 
     <div class="article-body">
       <header class="article-title">
-        <a href="/2020/05/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
+        <a href="/2020/05/17/jvm-metaspace-permGen/">jvm metaspace permGen</a>
       </header>
       <div class="article-entry post-inner-html">
         
-          <h2 id="我的第一篇博客"><a href="#我的第一篇博客" class="headerlink" title="我的第一篇博客"></a>我的第一篇博客</h2><p>这是我的一个技术博客</p>
+          <p>##jvm命令<br>jdk13 ：：</p>
+<p>jhsdb jmap –pid<br>–heap</p>
+<p>jhsdb jmap –heap –pid     </p>
+<p>jdk1.8 ：：</p>
+<p>jmap -heap</p>
+<p>jconsole</p>
+<p>jvisualvm</p>
+<p>##演示元空间内存溢出<br>/**</p>
+<ul>
+<li>演示元空间内存溢出 java.lang.OutOfMemoryError: Metaspace</li>
+<li>-XX:MaxMetaspaceSize=8m</li>
+<li>/<br>public class Demo1_8 extends ClassLoader { // 可以用来加载类的二进制字节码<br>  public static void main(String[] args) {<pre><code>int j = 0;
+try {
+    Demo1_8 test = new Demo1_8();
+    for (int i = 0; i &lt; 10000; i++, j++) {
+        // ClassWriter 作用是生成类的二进制字节码
+        ClassWriter cw = new ClassWriter(0);
+        // 版本号， public， 类名, 包名, 父类， 接口
+        cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, &quot;Class&quot; + i, null, &quot;java/lang/Object&quot;, null);
+        // 返回 byte[]
+        byte[] code = cw.toByteArray();
+        // 执行了类的加载
+        test.defineClass(&quot;Class&quot; + i, code, 0, code.length); // Class 对象
+    }
+} finally {
+    System.out.println(j);
+}</code></pre>  }<br>}</li>
+</ul>
+<p>Error occurred during initialization of VM<br>MaxMetaspaceSize is too small.</p>
 
         
       </div>
@@ -99,82 +127,8 @@
 
   <footer class="article-footer">
     <div class="article-more-info">
-      <a href="/2020/05/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
-  <time datetime="2020-05-15T11:59:36.000Z" itemprop="datePublished">2020-05-15</time>
-</a>
-      
-      
-    </div>
-  </footer>
-
-
-</article>
-
-  
-    <article
-  id="post-2"
-  class="article article-type-post"
->
-
-  <div class="article-inner">
-
-    
-
-    <div class="article-body">
-      <header class="article-title">
-        <a href="/2020/05/15/2/">我的第一篇博客</a>
-      </header>
-      <div class="article-entry post-inner-html">
-        
-          <h2 id="我的第一篇博客"><a href="#我的第一篇博客" class="headerlink" title="我的第一篇博客"></a>我的第一篇博客</h2><p>这是我的一个技术博客</p>
-
-        
-      </div>
-    </div>
-
-  </div>
-
-  <footer class="article-footer">
-    <div class="article-more-info">
-      <a href="/2020/05/15/2/" class="article-date">
-  <time datetime="2020-05-15T11:59:36.000Z" itemprop="datePublished">2020-05-15</time>
-</a>
-      
-      
-    </div>
-  </footer>
-
-
-</article>
-
-  
-    <article
-  id="post-3"
-  class="article article-type-post"
->
-
-  <div class="article-inner">
-
-    
-
-    <div class="article-body">
-      <header class="article-title">
-        <a href="/2020/05/15/3/">我的第一篇博客</a>
-      </header>
-      <div class="article-entry post-inner-html">
-        
-          <h2 id="我的第一篇博客"><a href="#我的第一篇博客" class="headerlink" title="我的第一篇博客"></a>我的第一篇博客</h2><p>这是我的一个技术博客<br>这是我的一个技术博客<br>这是我的一个技术博客<br>这是我的一个技术博客<br>这是我的一个技术博客<br>这是我的一个技术博客<br>这是我的一个技术博客</p>
-
-        
-      </div>
-    </div>
-
-  </div>
-
-  <footer class="article-footer">
-    <div class="article-more-info">
-      <a href="/2020/05/15/3/" class="article-date">
-  <time datetime="2020-05-15T11:59:36.000Z" itemprop="datePublished">2020-05-15</time>
+      <a href="/2020/05/17/jvm-metaspace-permGen/" class="article-date">
+  <time datetime="2020-05-17T04:34:51.000Z" itemprop="datePublished">2020-05-17</time>
 </a>
       
       
@@ -210,15 +164,7 @@
       <ul>
         
           <li>
-            <a href="/2020/05/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
-          </li>
-        
-          <li>
-            <a href="/2020/05/15/2/">我的第一篇博客</a>
-          </li>
-        
-          <li>
-            <a href="/2020/05/15/3/">我的第一篇博客</a>
+            <a href="/2020/05/17/jvm-metaspace-permGen/">jvm metaspace permGen</a>
           </li>
         
       </ul>
